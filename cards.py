@@ -2,19 +2,20 @@ class Card:
     def __init__(self, number, suit):
         self.number = number
         self.suit = suit
-        self.representation = f"{self.number} of {self.suit}"
+        self.representation = self.defineRepresentation()
 
-    def adjustRepresentation(self):
+    def defineRepresentation(self):
         if self.number == 1:
-            self.representation = f"A of {self.suit}"
-        if self.number == 11:
-            self.representation = f"J of {self.suit}"
-        if self.number == 12:
-            self.representation = f"Q of {self.suit}"
-        if self.number == 13:
-            self.representation = f"K of {self.suit}"
+            return "A"
+        elif self.number == 11:
+            return "J"
+        elif self.number == 12:
+            return "Q"
+        elif self.number == 13:
+            return "K"
+        else:
+            return str(self.number)
         return
-
 
 class Deck:
     def __init__(self):
@@ -27,7 +28,7 @@ class Deck:
     def pullACard(self):
         import random
         if len(self.cards) == 0:
-            return Card("You have no more cards to pull.", "")
+            return Card("", "", representation = "Teste")
         card = random.choice(self.cards)
         self.removeCard(card)
         return card
@@ -38,19 +39,19 @@ class Deck:
         for suit in suits:
             for number in range(1, 14):
                 newCard = Card(number, suit)
-                if newCard.number == 1 or newCard.number == 1 or newCard.number == 11 or newCard.number == 12 or newCard.number == 13:
-                    newCard.adjustRepresentation()
                 deck.append(newCard)
         return deck
 
+    def length(self):
+        return len(self.cards)
 
 # Para sortear uma única carta / To pick a single card
 if __name__ == "__main__":
     deck = Deck()
     while True:
         card = deck.pullACard()
-        print(f"Your card is a {card.representation}")
-        confirmation = input("Press 'n' to quit or 'Enter' to pull a card again.")
+        print(f"Your card is a {card.representation} of {card.suit}")
+        confirmation = input(f"Press 'n' to quit or 'Enter' to pull a card again. {deck.length()} cards remaining.")
         if confirmation == "n":
             break
         else:
