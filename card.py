@@ -24,15 +24,15 @@ if __name__ == "__main__":
     deck = Deck()
     while True:
         card = deck.pullACard()
-        print(f"Your card is a {card.representation} of {card.suit}")
+        print(f"Pulled card: {card.representation} {card.suit}")
         if deck.length() == 0:
-            confirmation = input("You have no more cards to pull. Press Enter to start a new deck or 'n' to exit.")
+            confirmation = input("You have no more cards to pull. Press Enter to start a new deck or 'n' to exit. ")
             if confirmation == "n":
                 break
             else:
                 deck = Deck()
         else:
-            confirmation = input(f"Press 'n' to quit or 'Enter' to pull a card again. {deck.length()} cards remaining.")
+            confirmation = input(f"Press 'n' to quit or 'Enter' to pull another card. {deck.length()} cards remaining. ")
             if confirmation == "n":
                 break
             else:
