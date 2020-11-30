@@ -1,20 +1,20 @@
 class Card:
-    def __init__(self, number, suit):
-        self.number = number
+    def __init__(self, value, suit):
+        self.value = value
         self.suit = suit
         self.representation = self.defineRepresentation()
 
     def defineRepresentation(self):
-        if self.number == 1:
+        if self.value == 1:
             return "A"
-        elif self.number == 11:
+        elif self.value == 11:
             return "J"
-        elif self.number == 12:
+        elif self.value == 12:
             return "Q"
-        elif self.number == 13:
+        elif self.value == 13:
             return "K"
         else:
-            return str(self.number)
+            return str(self.value)
         return
 
 class Deck:
@@ -35,8 +35,8 @@ class Deck:
         deck = []
         suits = ["Hearts", "Spades", "Clubs", "Diamonds"]
         for suit in suits:
-            for number in range(1, 14):
-                newCard = Card(number, suit)
+            for value in range(1, 14):
+                newCard = Card(value, suit)
                 deck.append(newCard)
         return deck
 
