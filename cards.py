@@ -27,8 +27,6 @@ class Deck:
 
     def pullACard(self):
         import random
-        if len(self.cards) == 0:
-            return Card("", "", representation = "Teste")
         card = random.choice(self.cards)
         self.removeCard(card)
         return card
@@ -51,8 +49,15 @@ if __name__ == "__main__":
     while True:
         card = deck.pullACard()
         print(f"Your card is a {card.representation} of {card.suit}")
-        confirmation = input(f"Press 'n' to quit or 'Enter' to pull a card again. {deck.length()} cards remaining.")
-        if confirmation == "n":
-            break
+        if deck.length() == 0:
+            confirmation = input("You have no more cards to pull. Press Enter to start a new deck or 'n' to exit.")
+            if confirmation == "n":
+                break
+            else:
+                deck = Deck()
         else:
-            continue
+            confirmation = input(f"Press 'n' to quit or 'Enter' to pull a card again. {deck.length()} cards remaining.")
+            if confirmation == "n":
+                break
+            else:
+                continue
