@@ -15,7 +15,7 @@ class Deck:
     def newDeck(self):
         from card import Card
         deck = []
-        suits = ["Hearts", "Spades", "Clubs", "Diamonds"]
+        suits = ["♤", "♡", "◇", "♧"]
         for suit in suits:
             for value in range(1, 14):
                 newCard = Card(value, suit)
