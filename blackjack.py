@@ -9,14 +9,8 @@ class BlackJack():
         self.setPlayers()
         print("♤ Black ♡ ◇ Jack ♧")
 
-    def newGame(self):
-        from cardgames.basics.deck import Deck
-        self.__init__()
-        self.setPlayers()
-        self.deck = Deck()
-        player = self.players[0]
-        self.turn(player)
-        return
+    def player(self):
+        return self.players[0]
 
     def setPlayers(self):
         player = BlackJackPlayer()
@@ -52,7 +46,7 @@ class BlackJack():
                 self.tryAgain(player)
             else:
                 self.oneMoreCardPlayer(player)
-            self.routine(player)
+                self.routine(player)
         return
 
     def turn(self, player):
@@ -69,5 +63,4 @@ class BlackJack():
 if __name__ == "__main__":
     while True:
         game = BlackJack()
-        player = game.players[0]
-        game.turn(player)
+        game.turn(game.player())
