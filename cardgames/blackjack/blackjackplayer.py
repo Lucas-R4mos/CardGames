@@ -13,7 +13,7 @@ class BlackJackPlayer(Player):
                 value += 10
             else:
                 value += card.value
-        if value == 11 and (self.hand[0].value == 1 or self.hand[1].value == 1): # BlackJack!
+        if len(self.hand) == 2 and (self.hand[0].value == 1 or self.hand[1].value == 1) and value == 11: # BlackJack!
             value = 21
         return value
 
@@ -23,15 +23,9 @@ class BlackJackPlayer(Player):
         return [card1, card2]
 
     def cardList(self):
-        cardList = list()
+        cardList = ""
         for card in self.hand:
-            cardList.append(f"{card.representation}")
+            cardList += card.representation + " "
+        if cardList == "":
+            return "Empty hand."
         return cardList
-
-class Dealer(BlackJackPlayer):
-    def __init__(self):
-        super().__init__()
-        self.name = "Dealer"
-
-    def dealerTurn(self):
-        pass

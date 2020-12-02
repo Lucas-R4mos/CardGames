@@ -1,4 +1,4 @@
-from cardgames.blackjack.blackjackplayer import BlackJackPlayer, Dealer
+from cardgames.blackjack.blackjackplayer import BlackJackPlayer
 
 
 class BlackJack():
@@ -6,7 +6,17 @@ class BlackJack():
         from cardgames.basics.deck import Deck
         self.players = list()
         self.deck = Deck()
+        self.setPlayers()
         print("♤ Black ♡ ◇ Jack ♧")
+
+    def newGame(self):
+        from cardgames.basics.deck import Deck
+        self.__init__()
+        self.setPlayers()
+        self.deck = Deck()
+        player = self.players[0]
+        self.turn(player)
+        return
 
     def setPlayers(self):
         player = BlackJackPlayer()
@@ -16,14 +26,48 @@ class BlackJack():
     def getFirstPlayer(self):
         return self.players[0]
 
-    def playerTurn(self, player):
+    def tryAgain(self, player):
+        tryAgain = input("Try again? ('n' for no) ")
+        if tryAgain == "n":
+            print("See you next time.")
+            exit()
+        else:
+            print("New game!")
+        return
+
+    def routine(self, player): # Show cards in hand/score; Decision based on score; if score < 21, +1?
+        score = player.handValue()
+        print(f"Hand: {player.cardList()}")
+        print(f"You have {score} points.")
+        if score == 21:
+            print("21 ♤ BLACK ♡ 21 Congratulations! 21 ◇ JACK ♧ 21")
+            self.tryAgain(player)
+        elif score > 21:
+            print("You lose.")
+            self.tryAgain(player)
+        else:
+            pullDecision = input("Pull one more card? ('n' for no)")
+            if pullDecision == "n":
+                print(f"Your final score: {score}")
+                self.tryAgain(player)
+            else:
+                self.oneMoreCardPlayer(player)
+            self.routine(player)
+        return
+
+    def turn(self, player):
         twoCards = player.pullTwoCardsFrom(self.deck)
         print(f"Pulled two cards: {twoCards[0]} and {twoCards[1]}")
-        print(f"You have {player.handValue()} points. Hand: {player.cardList()}")
-        return player.handValue()
+        self.routine(player)
+        return
 
+    def oneMoreCardPlayer(self, player):
+        oneCard = player.pullACardFrom(self.deck)
+        print(f"Pulled a card: {oneCard}")
+        return
 
 if __name__ == "__main__":
-    game = BlackJack()
-    game.setPlayers()
-    game.playerTurn(game.getFirstPlayer())
+    while True:
+        game = BlackJack()
+        player = game.players[0]
+        game.turn(player)
